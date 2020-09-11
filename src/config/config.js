@@ -1,7 +1,7 @@
 //enviroment
-port = process.env.PORT || 3000
+process.env.PORT = process.env.PORT || 3000
 
-node_env = process.env.NODE_ENV || 'dev';
+process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 
 
 let urlDb;
@@ -10,4 +10,4 @@ if (node_env = 'dev')
 else
     urlDb = 'mongodb+srv://oskarincon:kYd0yUkdfE4nIyZi@cluster0.h6zvg.mongodb.net/test'
 
-configdb = urlDb;
+process.env.NODE_ENV = urlDb;

@@ -6,7 +6,7 @@ const app = express()
 
 app.use(user);
 
-mongoose.connect(configdb, {
+mongoose.connect(process.env.NODE_ENV, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
@@ -19,4 +19,4 @@ mongoose.connect(configdb, {
 
 
 
-app.listen(port)
+app.listen(process.env.PORT)
