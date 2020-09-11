@@ -8,6 +8,8 @@ let urldb;
 if (process.env.NODE_ENV === 'dev')
     urldb = 'mongodb://localhost:27017/cafe'
 else
-    urldb = 'mongodb+srv://oskarincon:kYd0yUkdfE4nIyZi@cluster0.h6zvg.mongodb.net/test'
+    urldb = process.env.MONGO_URI
+
+//heroku config:set MONGO_URI="database"
 
 process.env.NODE_ENV = urldb;
