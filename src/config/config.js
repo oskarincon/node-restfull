@@ -10,6 +10,4 @@ if (process.env.NODE_ENV === 'dev')
 else
     urldb = process.env.MONGO_URI
 
-//heroku config:set MONGO_URI="database"
-
 process.env.NODE_ENV = urldb;
