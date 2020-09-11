@@ -6,4 +6,4 @@ dist
 # Log files
 
 # Editor directories and files
-.vscode
+.vscodecnpm i mongoose
