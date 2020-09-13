@@ -1,10 +1,10 @@
 require('./config/config')
-const user = require('./routes/user')
+const routes = require('./routes/routes')
 const mongoose = require('mongoose')
 const express = require('express')
 const app = express()
 
-app.use(user);
+app.use(routes);
 
 mongoose.connect(process.env.NODE_ENV, {
     useNewUrlParser: true,

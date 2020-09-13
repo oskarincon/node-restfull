@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const Usuario = require('../models/user')
+const {authMethod, admin_role_Method} = require('../middleware/auth')
 const bcr = require('bcrypt')
     //utilizado para definir que campos son permitidos en el body del modelo
 const _ = require('underscore')
@@ -9,7 +10,7 @@ const _ = require('underscore')
 app.use(bodyParser.json({ type: 'application/json' }))
 
 // /usuario?from=10&limit=2
-app.get('/usuario', function(req, res) {
+app.get('/usuario', authMethod, (req, res) => {
     let from = Number(req.query.from) || 0;
     let limit = Number(req.query.limit) || 5;
 
@@ -23,7 +24,7 @@ app.get('/usuario', function(req, res) {
                     err
                 })
             }
-            Usuario.count({}, (err, total) => {
+            Usuario.countDocuments({}, (err, total) => {
                 if (err) throw new Error(`error ${err}`)
                 return res.json({
                     status: '200',
@@ -45,7 +46,7 @@ app.get('/usuario', function(req, res) {
     "role": "ADMIN_ROLE"
 }
 */
-app.post('/usuario', function(req, res) {
+app.post('/usuario', [authMethod, admin_role_Method] , (req, res) => {
 
     let user = new Usuario({
         name: req.body.name,
@@ -78,7 +79,7 @@ body: {
     "role": "ADMIN_ROLE"
 }
 */
-app.put('/usuario/:id', function(req, res) {
+app.put('/usuario/:id', [authMethod, admin_role_Method], (req, res) => {
 
     let id = req.params.id;
     let body = _.pick(req.body, ['name', 'email', 'img', 'role', 'status']);
@@ -102,7 +103,7 @@ app.put('/usuario/:id', function(req, res) {
 
 });
 
-app.delete('/usuario/:id', function(req, res) {
+app.delete('/usuario/:id', [authMethod, admin_role_Method], (req, res) => {
     let id = req.params.id;
 
     Usuario.findByIdAndRemove(id, (err, UsuarioDB) => {
